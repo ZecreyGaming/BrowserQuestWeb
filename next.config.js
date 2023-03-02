@@ -5,23 +5,23 @@ const nextConfig = {
     return [
       {
         source: "/legend/:path*",
-        destination: process.env.NEXT_LEGEND_URL + "/:path*",
+        destination: "https://test-legend-app.zecrey.com/:path*",
       },
       {
         source: "/nft_url/:path*",
-        destination: process.env.NEXT_GQL_URL + "/:path*",
+        destination: "http://test-legend-nft.zecrey.com/:path*",
       },
       {
         source: "/rpc/:path*",
-        destination: process.env.NEXT_RPC + ":8545/:path*",
+        destination: "https://data-seed-prebsc-1-s3.binance.org:8545/:path*",
       },
       {
         source: "/rpc",
-        destination: process.env.NEXT_RPC + ":8545",
+        destination: "https://data-seed-prebsc-1-s3.binance.org:8545",
       },
       {
         source: "/game/:path*",
-        destination: process.env.NEXT_GAME_API_URL + "/:path*",
+        destination: "https://test-legend-app.zecrey.com/:path*",
       },
     ];
   },
@@ -36,9 +36,6 @@ const nextConfig = {
     domains: ["res.cloudinary.com"],
   },
   swcMinify: true,
-  env: {
-    NEXT_PUBLIC_GQL_KEY: process.env.NEXT_PUBLIC_GQL_KEY,
-  },
 };
 
 module.exports = nextConfig;
