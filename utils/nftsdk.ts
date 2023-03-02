@@ -18,7 +18,7 @@ import {
 import { client as gqlClient } from "apollo";
 import { getNFTs } from "apollo/queries/items";
 import { parseUnits } from "ethers/lib/utils";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 const creator_name = "amber1.zec";
 export const collection_id = 51527;
@@ -67,23 +67,33 @@ class NFTsdk {
       const blob = await file.blob();
       const img = new File([blob], "media");
       const media = await sdk.uploadImg(img);
-      let res = await client.mintNft(
-        collection_id,
-        "",
-        ASSET_DATA_MAP[data.id].name + `#${Date.now()}`,
-        "",
+      const raw_message = "eth";
+      const signed_message = await signMessage(user.name, raw_message);
+      let res = await mintNFT(
+        raw_message,
+        signed_message,
+        user.name,
         media.public_id,
-        JSON.stringify([{ name: "box_id", value: data.id.toString() }]),
-        levels,
-        stats,
-        user
+        data.id,
+        ASSET_DATA_MAP[data.id].name
       );
-      store.dispatch(addNFT({ id: res, url: ASSET_DATA_MAP[data.id].url }));
+      // let res = await client.mintNft(
+      //   collection_id,
+      //   "",
+      //   ASSET_DATA_MAP[data.id].name + `#${Date.now()}`,
+      //   "",
+      //   media.public_id,
+      //   JSON.stringify([{ name: "box_id", value: data.id.toString() }]),
+      //   levels,
+      //   stats,
+      //   user
+      // );
+      store.dispatch(addNFT({ id: res.id, url: ASSET_DATA_MAP[data.id].url }));
       if (data && data.cb) data.cb(data.id);
       store.dispatch(updateModalStatus(true));
       store.dispatch(
         updateModalNFT({
-          id: res,
+          id: res.id,
           url: ASSET_DATA_MAP[data.id].url,
           name: ASSET_DATA_MAP[data.id].name,
         })
@@ -230,18 +240,27 @@ const mintNFT = async (
   signed_message: string,
   account_name: string,
   media_id: string,
-  box_id: number
-) => {
-  const res = await axios.get("/legend/api/v1/asset/mintNft", {
-    params: {
-      raw_message,
-      signed_message,
-      account_name,
-      media_id,
-      box_id,
-    },
-  });
-  return res;
+  box_id: number,
+  box_name: string
+): Promise<{ id: number }> => {
+  try {
+    let data = new FormData();
+    data.append("raw_message", raw_message);
+    data.append("signed_message", signed_message);
+    data.append("account_name", account_name);
+    data.append("media_id", media_id);
+    data.append("box_id", box_id.toString());
+    data.append("box_name", box_name);
+    const res = await axios({
+      method: "post",
+      url: "/legend/api/v1/asset/mintNft",
+      headers: { "Content-Type": "multipart/form-data" },
+      data,
+    });
+    return res.data;
+  } catch (err) {
+    throw err;
+  }
 };
 
 const signMessage = async (username: string, msg: string): Promise<string> => {
