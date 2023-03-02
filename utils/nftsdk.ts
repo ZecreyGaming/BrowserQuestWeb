@@ -15,10 +15,10 @@ import {
   getCurrentWeb3Provider,
   signMsg,
 } from "./connect-wallet";
-import { client as gqlClient } from "apollo";
-import { getNFTs } from "apollo/queries/items";
+// import { client as gqlClient } from "apollo";
+// import { getNFTs } from "apollo/queries/items";
 import { parseUnits } from "ethers/lib/utils";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 const creator_name = "amber1.zec";
 export const collection_id = 51527;
@@ -122,10 +122,10 @@ class NFTsdk {
   getUserData = async (cb: (data: { assets: number[] }) => void) => {
     try {
       const user = getAccount();
-      const res = await gqlClient.query({
-        query: getNFTs(collection_id, null),
-        variables: { account_index: user.index },
-      });
+      // const res = await gqlClient.query({
+      //   query: getNFTs(collection_id, null),
+      //   variables: { account_index: user.index },
+      // });
       // const NFTs = res.data.asset
       //   .map((i: any) => ({
       //     id: i.id,

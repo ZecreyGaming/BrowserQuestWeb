@@ -16,11 +16,3 @@ export const getMultMediaUrl = (public_ids: string) => gql`
     }
   }
 `;
-
-export const getMediaId = () => gql`
-  query Media($url: String!) {
-    upload(where: { url: { _eq: $url } }) {
-      public_id
-    }
-  }
-`;
