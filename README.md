@@ -1,4 +1,5 @@
-This is an example front-end project of Zecrey Gaming.
+# BrowserQuestWeb
+This is an example front-end project of Zecrey BrowserQuest.
 
 ## Getting Started
 
