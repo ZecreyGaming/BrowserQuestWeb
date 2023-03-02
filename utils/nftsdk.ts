@@ -301,7 +301,7 @@ const getGameData = async (
     const res = await axios.get("/game/api/v1/asset/getGameInfo", {
       params: { account_name },
     });
-    return res.data;
+    return JSON.parse(res.data.game_data || "[]");
   } catch (err: any) {
     console.log("Error: ", err?.response?.data || err?.data);
     throw err;
