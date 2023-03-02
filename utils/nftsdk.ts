@@ -8,23 +8,19 @@ import {
   updateModalStatus,
 } from "redux/feature/modal";
 import store from "redux/store";
-import { Client, SDK } from "@zecrey/zecrey-legend-js-sdk";
+import { SDK } from "@zecrey/zecrey-legend-js-sdk";
 import { addNFT, updateNFTs } from "redux/feature/nfts";
 import {
   generateLegendSeedFromSig,
   getCurrentWeb3Provider,
   signMsg,
 } from "./connect-wallet";
-// import { client as gqlClient } from "apollo";
-// import { getNFTs } from "apollo/queries/items";
+import { client as gqlClient } from "apollo";
+import { getNFTs } from "apollo/queries/items";
 import { parseUnits } from "ethers/lib/utils";
 import axios from "axios";
 
-const creator_name = "amber1.zec";
 export const collection_id = 51527;
-// const properties = "[]";
-const levels = "[]";
-const stats = "[]";
 
 const getAccount = (): User => {
   let error = "";
@@ -47,11 +43,6 @@ const getAccount = (): User => {
 
 const sdk = new SDK();
 sdk.initial();
-const client = new Client(
-  creator_name,
-  "ee823a72698fd05c70fbdf36ba2ea467d33cf628c94ef030383efcb39581e43f"
-);
-client.initialize();
 
 class NFTsdk {
   handleAccountChange: ((data: any) => void) | undefined = undefined;
@@ -122,43 +113,37 @@ class NFTsdk {
   getUserData = async (cb: (data: { assets: number[] }) => void) => {
     try {
       const user = getAccount();
-      // const res = await gqlClient.query({
-      //   query: getNFTs(collection_id, null),
-      //   variables: { account_index: user.index },
-      // });
-      // const NFTs = res.data.asset
-      //   .map((i: any) => ({
-      //     id: i.id,
-      //     properties: i.asset_properties[0]
-      //       ? [
-      //           {
-      //             name: i.asset_properties[0].key,
-      //             value: i.asset_properties[0].value,
-      //           },
-      //         ]
-      //       : [],
-      //     created_at: i.created_at,
-      //     name: i.name,
-      //   }))
-      //   .sort((a: any, b: any) => b.created_at - a.created_at)
-      //   .filter(
-      //     (el: any) =>
-      //       el.name.startsWith("Sword of Valour-") &&
-      //       el.properties[0]?.name === "box_id"
-      //   )
-      //   .slice(0, 4);
-      const NFTs = await getGameData(user.name);
+      const res = await gqlClient.query({
+        query: getNFTs(collection_id, null),
+        variables: { account_index: user.index },
+      });
+      const NFTs = res.data.asset
+        .map((i: any) => ({
+          id: i.id,
+          levels: i.asset_levels[0]
+            ? [
+                {
+                  name: i.asset_levels[0].key,
+                  value: i.asset_levels[0].value,
+                },
+              ]
+            : [],
+          created_at: i.created_at,
+          name: i.name,
+        }))
+        .sort((a: any, b: any) => b.created_at - a.created_at)
+        .filter(
+          (el: any) =>
+            el.name.startsWith("Sword of Valour-") &&
+            el.levels[0]?.name === "boxId"
+        )
+        .slice(0, 4);
       const IDs: number[] = [];
       const arr: any[] = [];
-      // NFTs.forEach((i: any) => {
-      //   const box_id = Number(i.properties[0]?.value || 0);
-      //   IDs.push(box_id);
-      //   arr.push({ id: i.id, url: ASSET_DATA_MAP[box_id].url });
-      // });
-      NFTs.forEach((i) => {
-        const box_id = i.box_id;
+      NFTs.forEach((i: any) => {
+        const box_id = Number(i.levels[0]?.value || 0);
         IDs.push(box_id);
-        arr.push({ id: i.nft_id, url: ASSET_DATA_MAP[box_id].url });
+        arr.push({ id: i.id, url: ASSET_DATA_MAP[box_id].url });
       });
       store.dispatch(updateNFTs(arr));
       if (this.handleAccountChange) {
@@ -294,16 +279,16 @@ const signMessage = async (username: string, msg: string): Promise<string> => {
   }
 };
 
-const getGameData = async (
-  account_name: string
-): Promise<{ nft_id: number; box_id: number; box_name: string }[]> => {
-  try {
-    const res = await axios.get("/game/api/v1/asset/getGameInfo", {
-      params: { account_name },
-    });
-    return JSON.parse(res.data.game_data || "[]");
-  } catch (err: any) {
-    console.log("Error: ", err?.response?.data || err?.data);
-    throw err;
-  }
-};
+// const getGameData = async (
+//   account_name: string
+// ): Promise<{ nft_id: number; box_id: number; box_name: string }[]> => {
+//   try {
+//     const res = await axios.get("/game/api/v1/asset/getGameInfo", {
+//       params: { account_name },
+//     });
+//     return JSON.parse(res.data.game_data || "[]");
+//   } catch (err: any) {
+//     console.log("Error: ", err?.response?.data || err?.data);
+//     throw err;
+//   }
+// };

@@ -38,7 +38,6 @@ const nextConfig = {
   swcMinify: true,
   env: {
     NEXT_PUBLIC_GQL_KEY: process.env.NEXT_PUBLIC_GQL_KEY,
-    NEXT_PUBLIC_SEED: process.env.NEXT_PUBLIC_SEED,
   },
 };
 
