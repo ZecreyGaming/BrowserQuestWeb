@@ -3,7 +3,13 @@ This is an example front-end project of Zecrey BrowserQuest.
 
 ## Getting Started
 
-First, run the development server:
+First, install the env:
+
+```bash
+npm install
+```
+
+Second, run the development server:
 
 ```bash
 npm run dev
