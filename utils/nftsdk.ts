@@ -259,7 +259,7 @@ const mintNFT = async (
     data.append("box_name", box_name);
     const res = await axios({
       method: "post",
-      url: "/legend/api/v1/asset/mintNft",
+      url: "/game/api/v1/asset/mintNft",
       headers: { "Content-Type": "multipart/form-data" },
       data,
     });
@@ -298,7 +298,7 @@ const getGameData = async (
   account_name: string
 ): Promise<{ nft_id: number; box_id: number; box_name: string }[]> => {
   try {
-    const res = await axios.get("/legend/api/v1/asset/getGameInfo", {
+    const res = await axios.get("/game/api/v1/asset/getGameInfo", {
       params: { account_name },
     });
     return res.data;
