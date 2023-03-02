@@ -126,33 +126,39 @@ class NFTsdk {
         query: getNFTs(collection_id, null),
         variables: { account_index: user.index },
       });
-      const NFTs = res.data.asset
-        .map((i: any) => ({
-          id: i.id,
-          properties: i.asset_properties[0]
-            ? [
-                {
-                  name: i.asset_properties[0].key,
-                  value: i.asset_properties[0].value,
-                },
-              ]
-            : [],
-          created_at: i.created_at,
-          name: i.name,
-        }))
-        .sort((a: any, b: any) => b.created_at - a.created_at)
-        .filter(
-          (el: any) =>
-            el.name.startsWith("Sword of Valour-") &&
-            el.properties[0]?.name === "box_id"
-        )
-        .slice(0, 4);
+      // const NFTs = res.data.asset
+      //   .map((i: any) => ({
+      //     id: i.id,
+      //     properties: i.asset_properties[0]
+      //       ? [
+      //           {
+      //             name: i.asset_properties[0].key,
+      //             value: i.asset_properties[0].value,
+      //           },
+      //         ]
+      //       : [],
+      //     created_at: i.created_at,
+      //     name: i.name,
+      //   }))
+      //   .sort((a: any, b: any) => b.created_at - a.created_at)
+      //   .filter(
+      //     (el: any) =>
+      //       el.name.startsWith("Sword of Valour-") &&
+      //       el.properties[0]?.name === "box_id"
+      //   )
+      //   .slice(0, 4);
+      const NFTs = await getGameData(user.name);
       const IDs: number[] = [];
       const arr: any[] = [];
-      NFTs.forEach((i: any) => {
-        const box_id = Number(i.properties[0]?.value || 0);
+      // NFTs.forEach((i: any) => {
+      //   const box_id = Number(i.properties[0]?.value || 0);
+      //   IDs.push(box_id);
+      //   arr.push({ id: i.id, url: ASSET_DATA_MAP[box_id].url });
+      // });
+      NFTs.forEach((i) => {
+        const box_id = i.box_id;
         IDs.push(box_id);
-        arr.push({ id: i.id, url: ASSET_DATA_MAP[box_id].url });
+        arr.push({ id: i.nft_id, url: ASSET_DATA_MAP[box_id].url });
       });
       store.dispatch(updateNFTs(arr));
       if (this.handleAccountChange) {
@@ -258,7 +264,8 @@ const mintNFT = async (
       data,
     });
     return res.data;
-  } catch (err) {
+  } catch (err: any) {
+    console.log("Error: ", err?.response?.data || err?.data);
     throw err;
   }
 };
@@ -284,5 +291,19 @@ const signMessage = async (username: string, msg: string): Promise<string> => {
   } catch (err) {
     console.log(err);
     return "";
+  }
+};
+
+const getGameData = async (
+  account_name: string
+): Promise<{ nft_id: number; box_id: number; box_name: string }[]> => {
+  try {
+    const res = await axios.get("/legend/api/v1/asset/getGameInfo", {
+      params: { account_name },
+    });
+    return res.data;
+  } catch (err: any) {
+    console.log("Error: ", err?.response?.data || err?.data);
+    throw err;
   }
 };
