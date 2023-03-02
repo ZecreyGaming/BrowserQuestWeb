@@ -45,7 +45,7 @@ export const Fragment = gql`
     discord_link
     external_link
   }
-  fragment Collection_Info on collection {
+  fragment Collection_Detail on collection {
     id
     l2_collection_id
     name
@@ -124,7 +124,7 @@ export const Fragment = gql`
         ...Owner
       }
       collection {
-        ...Collection_Info
+        ...Collection_Detail
       }
     }
   }
