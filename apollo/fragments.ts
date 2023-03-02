@@ -19,6 +19,20 @@ import {
 import store from "redux/store";
 
 export const Fragment = gql`
+  # account related
+  fragment Owner on account {
+    id
+    account_index
+    account_name
+    banner_image
+    profile_image
+    pub_key
+  }
+  fragment User_Link on account {
+    external_link
+    instagram_link
+    twitter_link
+  }
   fragment Profile on account {
     ...Owner
     ...User_Link
