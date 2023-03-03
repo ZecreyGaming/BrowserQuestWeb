@@ -21,7 +21,7 @@ const nextConfig = {
       },
       {
         source: "/game/:path*",
-        destination: "https://test-legend-app.zecrey.com/:path*",
+        destination: "https://browserquest-game.zecrey.com/:path*",
       },
     ];
   },
