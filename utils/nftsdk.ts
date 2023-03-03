@@ -19,6 +19,7 @@ import { client as gqlClient } from "apollo";
 import { getNFTs } from "apollo/queries/items";
 import { parseUnits } from "ethers/lib/utils";
 import axios from "axios";
+import { unionBy, uniqBy } from "lodash";
 
 export const collection_id = 8;
 
@@ -117,27 +118,31 @@ class NFTsdk {
         query: getNFTs(collection_id, null),
         variables: { account_index: user.index },
       });
-      const NFTs = res.data.asset
-        .map((i: any) => ({
-          id: i.id,
-          levels: i.asset_levels[0]
-            ? [
-                {
-                  name: i.asset_levels[0].key,
-                  value: i.asset_levels[0].value,
-                },
-              ]
-            : [],
-          created_at: i.created_at,
-          name: i.name,
-        }))
-        .sort((a: any, b: any) => b.created_at - a.created_at)
-        .filter(
-          (el: any) =>
-            el.name.startsWith("treasureHunt-Sword of Valour-") &&
-            el.levels[0]?.name === "boxId"
-        )
-        .slice(0, 4);
+      const NFTs = uniqBy(
+        res.data.asset
+          .map((i: any) => ({
+            id: i.id,
+            levels: i.asset_levels[0]
+              ? [
+                  {
+                    name: i.asset_levels[0].key,
+                    value: i.asset_levels[0].value,
+                  },
+                ]
+              : [],
+            created_at: i.created_at,
+            name: i.name,
+            boxId: i.asset_levels[0] ? i.asset_levels[0].value : undefined,
+          }))
+          .sort((a: any, b: any) => b.created_at - a.created_at)
+          .filter(
+            (el: any) =>
+              el.name.startsWith("treasureHunt-Sword of Valour-") &&
+              el.levels[0]?.name === "boxId" &&
+              el.boxId !== undefined
+          ),
+        "boxId"
+      ).slice(0, 4);
       const IDs: number[] = [];
       const arr: any[] = [];
       NFTs.forEach((i: any) => {
