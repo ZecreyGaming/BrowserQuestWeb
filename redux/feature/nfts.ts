@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState: { id: number; url: string }[] = [];
+const initialState: { id: number; boxId: number; url: string }[] = [];
 
 export const nftsSlice = createSlice({
   name: "nfts",
@@ -8,7 +8,7 @@ export const nftsSlice = createSlice({
   reducers: {
     updateNFTs: (
       state,
-      action: PayloadAction<{ id: number; url: string }[]>
+      action: PayloadAction<{ id: number; boxId: number; url: string }[]>
     ) => {
       console.log("updateNFTs", action.payload);
       return (state = action.payload);
@@ -20,6 +20,7 @@ export const nftsSlice = createSlice({
       state,
       action: PayloadAction<{
         id: number;
+        boxId: number;
         url: string;
       }>
     ) => {

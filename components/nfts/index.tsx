@@ -1,6 +1,6 @@
 import Card from "components/common/card-wrap";
 import ImgBox from "components/common/img";
-import { DOMAIN } from "config";
+import { ASSET_DATA_MAP, DOMAIN } from "config";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { NoItem, Wrap } from "./styles";
@@ -26,7 +26,12 @@ const NFTs = () => {
               target="_blank"
               rel="noreferrer"
             >
-              <ImgBox src={i?.url} alt="NFT" width={60} height={60} />
+              <ImgBox
+                src={ASSET_DATA_MAP[i.boxId]?.file}
+                alt="NFT"
+                width={60}
+                height={60}
+              />
             </a>
           ))
         ) : (

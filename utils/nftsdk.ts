@@ -80,7 +80,9 @@ class NFTsdk {
       //   stats,
       //   user
       // );
-      store.dispatch(addNFT({ id: res.id, url: ASSET_DATA_MAP[data.id].url }));
+      store.dispatch(
+        addNFT({ id: res.id, boxId: data.id, url: ASSET_DATA_MAP[data.id].url })
+      );
       if (data && data.cb) data.cb(data.id);
       store.dispatch(updateModalStatus(true));
       store.dispatch(
@@ -114,10 +116,12 @@ class NFTsdk {
   getUserData = async (cb: (data: { assets: number[] }) => void) => {
     try {
       if (!process.env.NEXT_COLLECTION_ID)
-        throw new Error("Please set NEXT_COLLECTION_ID in env.");
+        throw new Error("NEXT_COLLECTION_ID not found.");
+      if (isNaN(Number(process.env.NEXT_COLLECTION_ID)))
+        throw new Error("NEXT_COLLECTION_ID is NaN.");
       const user = getAccount();
       const res = await gqlClient.query({
-        query: getNFTs(process.env.NEXT_COLLECTION_ID, null),
+        query: getNFTs(Number(process.env.NEXT_COLLECTION_ID), null),
         variables: { account_index: user.index },
       });
       const NFTs = uniqBy(
@@ -150,7 +154,7 @@ class NFTsdk {
       NFTs.forEach((i: any) => {
         const box_id = Number(i.levels[0]?.value || 0);
         IDs.push(box_id);
-        arr.push({ id: i.id, url: ASSET_DATA_MAP[box_id].url });
+        arr.push({ id: i.id, boxId: i.boxId, url: ASSET_DATA_MAP[box_id].url });
       });
       store.dispatch(updateNFTs(arr));
       if (this.handleAccountChange) {
