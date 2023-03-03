@@ -209,12 +209,12 @@ const Confirm = (props: { name: string; next: () => void }) => {
             {price || "..."} {DEFAULT_TOKEN.symbol}
           </CenterFlex>
         </BetweenFlex>
-        <BetweenFlex className="info">
+        {/* <BetweenFlex className="info">
           <div className="label">Discount:</div>
           <div className="value discount">
             {price ? -price : "..."} {DEFAULT_TOKEN.symbol}
           </div>
-        </BetweenFlex>
+        </BetweenFlex> */}
       </Info>
       {/* <FreeText>
         <Gift />
