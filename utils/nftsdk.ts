@@ -249,7 +249,7 @@ const mintNFT = async (
     data.append("box_name", box_name);
     const res = await axios({
       method: "post",
-      url: "/game/api/v1/asset/mintNft",
+      url: process.env.NEXT_GAME_API_URL + "/api/v1/asset/mintNft",
       headers: { "Content-Type": "multipart/form-data" },
       data,
     });

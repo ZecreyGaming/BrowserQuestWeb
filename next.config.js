@@ -36,6 +36,9 @@ const nextConfig = {
     domains: ["res.cloudinary.com"],
   },
   swcMinify: true,
+  env: {
+    NEXT_GAME_API_URL: process.env.NEXT_GAME_API_URL,
+  },
 };
 
 module.exports = nextConfig;
