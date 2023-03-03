@@ -1,7 +1,7 @@
 import Collection from "components/collection";
 import Detail from "components/detail";
 import NFTs from "components/nfts";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateNFTs } from "redux/feature/nfts";
 import { RootState } from "redux/store";
@@ -11,6 +11,7 @@ import { Wrap } from "./styles";
 const div_id = "GameDiv";
 
 const Game = () => {
+  const [ac, setAc] = useState(false);
   const dom = useRef<HTMLIFrameElement>(null);
   const dispatch = useDispatch();
   const { user } = useSelector((state: RootState) => state.wallet);
@@ -28,7 +29,7 @@ const Game = () => {
   }, [user?.name, dispatch]);
 
   useEffect(() => {
-    if (dom.current)
+    if (dom.current && ac)
       dom.current?.addEventListener("load", () => {
         const doc = dom.current?.contentDocument;
         if (!doc) return;
@@ -54,6 +55,12 @@ const Game = () => {
           //   "0 -0.1rem 0 -0.1rem";
         }
       });
+  }, [ac]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setAc(true);
+    }, 500);
   }, []);
 
   return (
