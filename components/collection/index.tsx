@@ -16,7 +16,7 @@ const Collection = () => {
       <Wrap>
         <ImgBox
           className="logo"
-          src="https://res.cloudinary.com/zecrey/image/upload/v1664346399/collection/tolx6gq3gur4sfweme7x.png"
+          src="/static/image/game-item-1.png"
           alt=""
           width={75}
           height={75}
