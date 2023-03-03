@@ -22,7 +22,7 @@ npm install
 
 And then create the `.env` config file
 ```bash
-mv .env.example .env
+cp .env.example .env
 ```
 
 Finally, run the development server:
