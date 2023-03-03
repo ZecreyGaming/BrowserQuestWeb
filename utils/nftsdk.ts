@@ -21,7 +21,7 @@ import { parseUnits } from "ethers/lib/utils";
 import axios from "axios";
 import { uniqBy } from "lodash";
 
-export const collection_id = 8;
+// export const collection_id = 8;
 
 const getAccount = (): User => {
   let error = "";
@@ -113,9 +113,11 @@ class NFTsdk {
 
   getUserData = async (cb: (data: { assets: number[] }) => void) => {
     try {
+      if (!process.env.NEXT_COLLECTION_ID)
+        throw new Error("Please set NEXT_COLLECTION_ID in env.");
       const user = getAccount();
       const res = await gqlClient.query({
-        query: getNFTs(collection_id, null),
+        query: getNFTs(process.env.NEXT_COLLECTION_ID, null),
         variables: { account_index: user.index },
       });
       const NFTs = uniqBy(

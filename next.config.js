@@ -38,6 +38,7 @@ const nextConfig = {
   swcMinify: true,
   env: {
     NEXT_GAME_API_URL: process.env.NEXT_GAME_API_URL,
+    NEXT_COLLECTION_ID: process.env.NEXT_COLLECTION_ID,
   },
 };
 
