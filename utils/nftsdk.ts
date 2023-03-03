@@ -55,12 +55,12 @@ class NFTsdk {
     try {
       store.dispatch(updateModalAc(true));
       const user = getAccount();
+      const raw_message = "eth";
+      const signed_message = await signMessage(user.name, raw_message);
       const file = await fetch(ASSET_DATA_MAP[data.id].file);
       const blob = await file.blob();
       const img = new File([blob], "media");
       const media = await sdk.uploadImg(img);
-      const raw_message = "eth";
-      const signed_message = await signMessage(user.name, raw_message);
       let res = await mintNFT(
         raw_message,
         signed_message,
