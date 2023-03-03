@@ -5,23 +5,23 @@ const nextConfig = {
     return [
       {
         source: "/legend/:path*",
-        destination: "https://test-legend-app.zecrey.com/:path*",
+        destination: process.env.NEXT_LEGEND_URL + "/:path*",
       },
       {
         source: "/nft_url/:path*",
-        destination: "http://test-legend-nft.zecrey.com/:path*",
+        destination: process.env.NEXT_GQL_URL + "/:path*",
       },
       {
         source: "/rpc/:path*",
-        destination: "https://data-seed-prebsc-1-s3.binance.org:8545/:path*",
+        destination: process.env.NEXT_RPC + "8545/:path*",
       },
       {
         source: "/rpc",
-        destination: "https://data-seed-prebsc-1-s3.binance.org:8545",
+        destination: process.env.NEXT_RPC + ":8545",
       },
       {
         source: "/game/:path*",
-        destination: "https://browserquest-game.zecrey.com/:path*",
+        destination: process.env.NEXT_GAME_API_URL + "/:path*",
       },
     ];
   },

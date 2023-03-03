@@ -7,8 +7,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      "x-hasura-admin-secret":
-        "j76XNG0u72QWBt4gS167wJlhnFNHSI5A6R1427KGJyMrFWI7s8wOvz1vmA4DsGos",
+      "x-hasura-admin-secret": process.env.NEXT_PUBLIC_GQL_KEY,
     },
   };
 });
