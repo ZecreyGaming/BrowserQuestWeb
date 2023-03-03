@@ -13,7 +13,6 @@ export const getNFTs = (collection_id: number, expired: number | null) => {
           #}
           created_at: { _gte: "${new Date(expired || 0).toJSON()}" }
         }
-        distinct_on: 
         order_by: { created_at: desc_nulls_last } 
       ) {
         id

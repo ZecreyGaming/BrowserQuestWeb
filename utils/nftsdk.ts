@@ -137,7 +137,7 @@ class NFTsdk {
           .sort((a: any, b: any) => b.created_at - a.created_at)
           .filter(
             (el: any) =>
-              el.name.startsWith("treasureHunt-Sword of Valour-") &&
+              el.name.startsWith("treasureHunt") &&
               el.levels[0]?.name === "boxId" &&
               el.boxId !== undefined
           ),
