@@ -10,7 +10,7 @@ Check your node and npm version.
 node -v
 # v18.14.0
 npm -v
-9.3.1
+# 9.3.1
 ```
 
 Clone the repo and install dependencies:
