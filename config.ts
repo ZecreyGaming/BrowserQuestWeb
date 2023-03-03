@@ -45,22 +45,22 @@ export const ASSET_DATA_MAP = [
     file: "/static/image/game-item-1.png",
   },
   {
-    name: "Sword of Valour-Defender Ⅰ",
+    name: "Sword-of-Valour-Defender-Ⅰ",
     url: "https://res.cloudinary.com/zecrey/image/upload/v1674967000/collection/ousdkrlka28nxghui7b4.png",
     file: "/static/image/game-item-1.png",
   },
   {
-    name: "Sword of Valour-Defender Ⅱ",
+    name: "Sword-of-Valour-Defender-Ⅱ",
     url: "https://res.cloudinary.com/zecrey/image/upload/v1674967000/collection/ousdkrlka28nxghui7b4.png",
     file: "/static/image/game-item-1.png",
   },
   {
-    name: "Sword of Valour-Fury Ⅰ",
+    name: "Sword-of-Valour-Fury-Ⅰ",
     url: "https://res.cloudinary.com/zecrey/image/upload/v1664421677/collection/lolmlxvvehxg7endj3za.png",
     file: "/static/image/game-item-2.png",
   },
   {
-    name: "Sword of Valour-Fury Ⅱ",
+    name: "Sword-of-Valour-Fury-Ⅱ",
     url: "https://res.cloudinary.com/zecrey/image/upload/v1664421677/collection/lolmlxvvehxg7endj3za.png",
     file: "/static/image/game-item-2.png",
   },

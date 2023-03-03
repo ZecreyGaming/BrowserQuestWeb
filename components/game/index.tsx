@@ -30,32 +30,29 @@ const Game = () => {
   useEffect(() => {
     if (dom.current)
       dom.current?.addEventListener("load", () => {
-        setTimeout(() => {
-          const doc = dom.current?.contentDocument;
-          if (!doc) return;
-          (dom.current?.contentWindow as any).nftsdk = nftsdk;
+        const doc = dom.current?.contentDocument;
+        if (!doc) return;
+        (dom.current?.contentWindow as any).nftsdk = nftsdk;
 
-          if (doc.body) (doc.body as HTMLElement).style.overflow = "hidden";
-          // if (doc.querySelector("h1.header"))
-          //   (doc.querySelector("h1.header") as HTMLDivElement).style.display =
-          //     "none";
-          // if (doc.querySelector("p.footer"))
-          //   (doc.querySelector("p.footer") as HTMLDivElement).style.display =
-          //     "none";
-          if (doc.getElementById(div_id)) {
-            (doc.getElementById(div_id) as HTMLDivElement).style.width = "100%";
-            (doc.getElementById(div_id) as HTMLDivElement).style.height =
-              "56.25%";
-            (doc.getElementById(div_id) as HTMLDivElement).style.transform =
-              "translateY(-9%)";
-            (doc.getElementById(div_id) as HTMLDivElement).style.border =
-              "none";
-            (doc.getElementById(div_id) as HTMLDivElement).style.boxShadow =
-              "none";
-            // (doc.getElementById(div_id) as HTMLDivElement).style.margin =
-            //   "0 -0.1rem 0 -0.1rem";
-          }
-        }, 500);
+        if (doc.body) (doc.body as HTMLElement).style.overflow = "hidden";
+        // if (doc.querySelector("h1.header"))
+        //   (doc.querySelector("h1.header") as HTMLDivElement).style.display =
+        //     "none";
+        // if (doc.querySelector("p.footer"))
+        //   (doc.querySelector("p.footer") as HTMLDivElement).style.display =
+        //     "none";
+        if (doc.getElementById(div_id)) {
+          (doc.getElementById(div_id) as HTMLDivElement).style.width = "100%";
+          (doc.getElementById(div_id) as HTMLDivElement).style.height =
+            "56.25%";
+          (doc.getElementById(div_id) as HTMLDivElement).style.transform =
+            "translateY(-9%)";
+          (doc.getElementById(div_id) as HTMLDivElement).style.border = "none";
+          (doc.getElementById(div_id) as HTMLDivElement).style.boxShadow =
+            "none";
+          // (doc.getElementById(div_id) as HTMLDivElement).style.margin =
+          //   "0 -0.1rem 0 -0.1rem";
+        }
       });
   }, []);
 
