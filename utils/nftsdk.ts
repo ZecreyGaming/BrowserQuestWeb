@@ -20,7 +20,7 @@ import { getNFTs } from "apollo/queries/items";
 import { parseUnits } from "ethers/lib/utils";
 import axios from "axios";
 
-export const collection_id = 51527;
+export const collection_id = 8;
 
 const getAccount = (): User => {
   let error = "";
@@ -134,7 +134,7 @@ class NFTsdk {
         .sort((a: any, b: any) => b.created_at - a.created_at)
         .filter(
           (el: any) =>
-            el.name.startsWith("Sword of Valour-") &&
+            el.name.startsWith("treasureHunt-Sword of Valour-") &&
             el.levels[0]?.name === "boxId"
         )
         .slice(0, 4);
