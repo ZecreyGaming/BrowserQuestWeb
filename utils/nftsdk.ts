@@ -19,7 +19,7 @@ import { client as gqlClient } from "apollo";
 import { getNFTs } from "apollo/queries/items";
 import { parseUnits } from "ethers/lib/utils";
 import axios from "axios";
-import { unionBy, uniqBy } from "lodash";
+import { uniqBy } from "lodash";
 
 export const collection_id = 8;
 

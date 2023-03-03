@@ -34,8 +34,10 @@ const UserCtrls = () => {
       setDisabled(true); // unable to close the modal for protected pathes
     }
     if (user) {
-      setAc(false); // close modal when logged in
-      setDisabled(false);
+      setTimeout(() => {
+        setAc(false); // close modal when logged in
+        setDisabled(false);
+      }, 1000);
     } else {
       setBar(false); // close profile bar when logged out
     }
