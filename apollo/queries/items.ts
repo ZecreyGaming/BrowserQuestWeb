@@ -20,7 +20,7 @@ export const getNFTs = (collection_id: number, expired: number | null) => {
         media_detail {
           url
         }
-        asset_properties {
+        asset_levels {
           key
           value
         }
