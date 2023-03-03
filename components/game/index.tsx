@@ -60,13 +60,13 @@ const Game = () => {
   useEffect(() => {
     setTimeout(() => {
       setAc(true);
-    }, 500);
+    }, 1500);
   }, []);
 
   return (
     <Wrap className="game">
       <div className="iframe-wrap">
-        <iframe ref={dom} src="/web-desktop/index.html" />
+        <iframe ref={dom} src={ac ? "/web-desktop/index.html" : ""} />
       </div>
       <NFTs />
       <Collection />
