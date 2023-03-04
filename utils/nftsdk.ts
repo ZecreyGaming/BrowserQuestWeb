@@ -42,7 +42,7 @@ const getAccount = (): User => {
   }
 };
 
-const sdk = new SDK();
+export const sdk = new SDK();
 sdk.initial();
 
 class NFTsdk {
