@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@zecrey/zecrey-legend-js-sdk": "^0.0.10",
+    "@zecrey/zecrey-legend-js-sdk": "^0.0.11",
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"
