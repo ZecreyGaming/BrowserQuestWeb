@@ -30,7 +30,7 @@ const Collection = () => {
       label={`About ${coll.name}`}
       link={{
         label: "Check Collection >",
-        href: `${DOMAIN}/collection/${coll.short_name}`,
+        href: `${DOMAIN}/collection/${encodeURIComponent(coll.short_name)}`,
       }}
     >
       <Wrap>
